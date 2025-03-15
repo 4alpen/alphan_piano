@@ -1,0 +1,352 @@
+:root {
+    --key-white: #ffffff;
+    --key-black: #333333;
+    --key-highlight: #4CAF50;
+    --key-error: #ff6b6b;
+    --key-success: #4CAF50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #000000;
+    color: white;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Otomatik çalma butonu için stil */
+.auto-play-btn {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 25px;
+    background-color: #3b5998;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.auto-play-btn:hover {
+    background-color: #314a7e;
+}
+
+.game-container {
+    background: #111111;
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.2rem;
+    background-color: rgba(17, 17, 17, 0.8);
+    flex-direction: row;
+}
+
+.song-selector,
+.toggle-mode,
+.add-song-btn,
+.delete-song-btn,
+.delete-note-btn,
+.clear-notes-btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    min-width: 80px;
+    border: none;
+    border-radius: 0.6rem;
+    background: #3b5998;
+    color: white;
+    cursor: pointer;
+}
+
+.song-selector {
+    min-width: 200px;
+}
+
+.delete-song-btn {
+    background: #ff4444;
+}
+
+.toggle-mode:hover,
+.add-song-btn:hover,
+.delete-song-btn:hover,
+.delete-note-btn:hover,
+.clear-notes-btn:hover,
+.song-selector:hover {
+    background: #314a7e;
+}
+
+.delete-song-btn:hover {
+    background: #ff3333;
+}
+
+.delete-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.piano {
+    position: relative;
+    width: 100%;
+    height: calc(80vh - 8rem);
+    margin: 1.5rem 0;
+    display: flex;
+    padding: 0 2px;
+    background: #111111;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.key {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.note-label {
+    position: absolute;
+    bottom: 18px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.white-key {
+    flex: 1;
+    background-color: #ffffff !important; /* Doğrudan renk ve !important ile */
+    border: 3px solid #333;
+    border-radius: 0 0 8px 8px;
+    margin: 0 2px;
+    z-index: 1;
+    height: 100%;
+}
+
+.black-key {
+    position: absolute;
+    width: 80px;
+    height: 65%;
+    background-color: #333333 !important; /* Doğrudan renk ve !important ile */
+    border: 2px solid #000;
+    border-radius: 0 0 5px 5px;
+    z-index: 5;
+    top: 0;
+}
+
+[data-note="C#"] {
+    left: calc(11.14% - 1px);
+}
+
+[data-note="D#"] {
+    left: calc(25.42% - 1px);
+}
+
+[data-note="F#"] {
+    left: calc(54% - 1px);
+}
+
+[data-note="G#"] {
+    left: calc(68.28% - 1px);
+}
+
+[data-note="A#"] {
+    left: calc(82.56% - 1px);
+}
+
+.white-key .note-label {
+    color: #000000;
+}
+
+.black-key .note-label {
+    color: #ffffff;
+}
+
+/* Highlight sınıfı - sarı/turuncu renk yerine yeşil yapıldı */
+.key.highlight {
+    background-color: #4CAF50 !important; 
+    z-index: 3; /* En üstte görünmesi için */
+}
+.white-key.highlight {
+    background-color: #4CAF50 !important;
+}
+
+.black-key.highlight {
+    background-color: #4CAF50 !important;
+}
+.key.error {
+    background-color: #ff6b6b !important;
+    z-index: 3;
+}
+
+.key.success {
+    background-color: #4CAF50 !important;
+    z-index: 3;
+}
+
+.note-display {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    min-height: 2rem;
+}
+
+.note-box {
+    width: 70px;
+    height: 70px;
+    border: 3px solid #555;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: #333;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.note-box.rest {
+    background-color: #555;
+    color: #999;
+}
+
+.note-box.current-note {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    transform: scale(1.1);
+}
+
+.progress {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+}
+
+.shortcuts-info {
+    position: fixed;
+    top: 10px;
+    left: 55%;
+    color: #888;
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .shortcuts-info {
+        display: none;
+    }
+}
+
+@media (max-width: 1399px) {
+    .piano {
+        height: calc(80vh - 7rem);
+    }
+
+    .black-key {
+        width: 70px;
+        height: 63%;
+    }
+
+    [data-note="C#"] {
+        left: calc(14.14% - 35px);
+    }
+
+    [data-note="D#"] {
+        left: calc(28.52% - 35px);
+    }
+    [data-note="F#"] {
+        left: calc(56.34% - 35px);
+    }
+
+    [data-note="G#"] {
+        left: calc(71.2% - 35px);
+    }
+    [data-note="A#"] {
+        left: calc(85.14% - 35px);
+    }
+}
+
+@media (max-width: 768px) {
+    .song-selector,
+    .toggle-mode,
+    .add-song-btn,
+    .delete-song-btn,
+    .delete-note-btn,
+    .clear-notes-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        min-width: 80px;
+    }
+
+    .black-key {
+        width: 12%;
+        height: 63%;
+    }
+
+    .song-selector {
+        min-width: 120px;
+    }
+
+    [data-note="C#"] {
+        left: calc(7.3% - 0vh);
+    }
+
+    [data-note="D#"] {
+        left: calc(21.9% - 0vh);
+    }
+
+    [data-note="F#"] {
+        left: calc(49% - 0vh);
+    }
+
+    [data-note="G#"] {
+        left: calc(63.4% - 0vh);
+    }
+
+    [data-note="A#"] {
+        left: calc(78% - 0vh);
+    }
+
+    .note-box {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+}
